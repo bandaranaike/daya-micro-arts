@@ -1,10 +1,86 @@
 <script setup>
+import {onMounted, ref} from "vue";
 import {Head} from '@inertiajs/inertia-vue3';
 import JetAuthenticationCardLogo from '@/Components/AuthenticationCardLogo.vue';
 
 defineProps({
     terms: String,
 });
+
+let
+    gallery = [
+        [
+            {
+                name: "Train pencil carving",
+                image: '/storage/projects/1.jpg',
+                duration: 48,
+                date: '2022-03-15',
+                price: 750
+            },
+            {
+                name: "Train pencil carving",
+                image: '/storage/projects/2.jpg',
+                duration: 48,
+                date: '2022-03-15',
+                price: 750
+            },
+            {
+                name: "Train pencil carving",
+                image: '/storage/projects/3.jpg',
+                duration: 48,
+                date: '2022-03-15',
+                price: 750
+            }
+        ],
+        [
+            {
+                name: "Train pencil carving",
+                image: '/storage/projects/4.jpg',
+                duration: 48,
+                date: '2022-03-15',
+                price: 750
+            },
+            {
+                name: "Train pencil carving",
+                image: '/storage/projects/5.jpg',
+                duration: 48,
+                date: '2022-03-15',
+                price: 750
+            },
+            {
+                name: "Train pencil carving",
+                image: '/storage/projects/6.jpg',
+                duration: 48,
+                date: '2022-03-15',
+                price: 750
+            }
+        ],
+        [
+            {
+                name: "Train pencil carving",
+                image: '/storage/projects/7.jpg',
+                duration: 48,
+                date: '2022-03-15',
+                price: 750
+            },
+            {
+                name: "Train pencil carving",
+                image: '/storage/projects/5.jpg',
+                duration: 48,
+                date: '2022-03-15',
+                price: 750
+            },
+            {
+                name: "Train pencil carving",
+                image: '/storage/projects/8.jpg',
+                duration: 48,
+                date: '2022-03-15',
+                price: 750
+            }
+        ],
+    ]
+
+
 </script>
 
 <template>
@@ -12,107 +88,33 @@ defineProps({
 
     <div class="font-sans text-gray-700 antialiased">
         <div class="min-h-screen flex flex-col">
+            <div class="absolute top-0 border-b w-full flex p-1 border-gray-900">
+                <div class="max-w-6xl w-full mx-auto py-1">
+                    <a href="/">
+                        <img src="/images/daya-micro-art-white.png" class="h-12" alt="Daya Micro Art">
+                    </a>
+                </div>
+            </div>
             <div class="bg-black items-center">
-                <div class="background-image w-full py-64"></div>
+                <div class="background-image w-full py-72"></div>
             </div>
             <div class="max-w-6xl w-full mx-auto items-center text-center py-16">
                 <h3 class="text-2xl mb-5">The selected of</h3>
                 <h2 class="text-7xl font-bold mb-12">PORTFOLIO</h2>
-                <div class="">
+                <div class="pb-8">
                     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400&display=swap" rel="stylesheet">
 
                     <div class="gallery">
-                        <div class="gallery__column">
-                            <a href="https://unsplash.com/@jeka_fe" target="_blank" class="gallery__link">
-                                <figure class="gallery__thumb">
-                                    <img src="https://source.unsplash.com/_cvwXhGqG-o/300x300" alt="Portrait by Jessica Felicio" class="gallery__image">
-                                    <figcaption class="gallery__caption">Portrait by Jessica Felicio</figcaption>
-                                </figure>
-                            </a>
-
-                            <a href="https://unsplash.com/@oladimeg" target="_blank" class="gallery__link">
-                                <figure class="gallery__thumb">
-                                    <img src="https://source.unsplash.com/AHBvAIVqk64/300x500" alt="Portrait by Oladimeji Odunsi" class="gallery__image">
-                                    <figcaption class="gallery__caption">Portrait by Oladimeji Odunsi</figcaption>
-                                </figure>
-                            </a>
-
-                            <a href="https://unsplash.com/@a2eorigins" target="_blank" class="gallery__link">
-                                <figure class="gallery__thumb">
-                                    <img src="https://source.unsplash.com/VLPLo-GtrIE/300x300" alt="Portrait by Alex Perez" class="gallery__image">
-                                    <figcaption class="gallery__caption">Portrait by Alex Perez</figcaption>
-                                </figure>
-                            </a>
-                        </div>
-
-                        <div class="gallery__column">
-                            <a href="https://unsplash.com/@noahbuscher" target="_blank" class="gallery__link">
-                                <figure class="gallery__thumb">
-                                    <img src="https://source.unsplash.com/AR7aumwKr2s/300x300" alt="Portrait by Noah Buscher" class="gallery__image">
-                                    <figcaption class="gallery__caption">Portrait by Noah Buscher</figcaption>
-                                </figure>
-                            </a>
-
-                            <a href="https://unsplash.com/@von_co" target="_blank" class="gallery__link">
-                                <figure class="gallery__thumb">
-                                    <img src="https://source.unsplash.com/dnL6ZIpht2s/300x300" alt="Portrait by Ivana Cajina" class="gallery__image">
-                                    <figcaption class="gallery__caption">Portrait by Ivana Cajina</figcaption>
-                                </figure>
-                            </a>
-
-                            <a href="https://unsplash.com/@samburriss" target="_blank" class="gallery__link">
-                                <figure class="gallery__thumb">
-                                    <img src="https://source.unsplash.com/tV_1sC603zA/300x500" alt="Portrait by Sam Burriss" class="gallery__image">
-                                    <figcaption class="gallery__caption">Portrait by Sam Burriss</figcaption>
-                                </figure>
-                            </a>
-                        </div>
-
-                        <div class="gallery__column">
-                            <a href="https://unsplash.com/@marilezhava" target="_blank" class="gallery__link">
-                                <figure class="gallery__thumb">
-                                    <img src="https://source.unsplash.com/Xm9-vA_bhm0/300x500" alt="Portrait by Mari Lezhava" class="gallery__image">
-                                    <figcaption class="gallery__caption">Portrait by Mari Lezhava</figcaption>
-                                </figure>
-                            </a>
-
-                            <a href="https://unsplash.com/@ethanhaddox" target="_blank" class="gallery__link">
-                                <figure class="gallery__thumb">
-                                    <img src="https://source.unsplash.com/NTjSR3zYpsY/300x300" alt="Portrait by Ethan Haddox" class="gallery__image">
-                                    <figcaption class="gallery__caption">Portrait by Ethan Haddox</figcaption>
-                                </figure>
-                            </a>
-
-                            <a href="https://unsplash.com/@mr_geshani" target="_blank" class="gallery__link">
-                                <figure class="gallery__thumb">
-                                    <img src="https://source.unsplash.com/2JH8d3ChNec/300x300" alt="Portrait by Amir Geshani" class="gallery__image">
-                                    <figcaption class="gallery__caption">Portrait by Amir Geshani</figcaption>
-                                </figure>
-                            </a>
-                        </div>
-
-                        <div class="gallery__column">
-                            <a href="https://unsplash.com/@frxgui" target="_blank" class="gallery__link">
-                                <figure class="gallery__thumb">
-                                    <img src="https://source.unsplash.com/FQhLLehm4dk/300x300" alt="Portrait by Guilian Fremaux" class="gallery__image">
-                                    <figcaption class="gallery__caption">Portrait by Guilian Fremaux</figcaption>
-                                </figure>
-                            </a>
-
-                            <a href="https://unsplash.com/@majestical_jasmin" target="_blank" class="gallery__link">
-                                <figure class="gallery__thumb">
-                                    <img src="https://source.unsplash.com/OQd9zONSx7s/300x300" alt="Portrait by Jasmin Chew" class="gallery__image">
-                                    <figcaption class="gallery__caption">Portrait by Jasmin Chew</figcaption>
-                                </figure>
-                            </a>
-
-                            <a href="https://unsplash.com/@dimadallacqua" target="_blank" class="gallery__link">
-                                <figure class="gallery__thumb">
-                                    <img src="https://source.unsplash.com/XZkEhowjx8k/300x500" alt="Portrait by Dima DallAcqua" class="gallery__image">
-                                    <figcaption class="gallery__caption">Portrait by Dima DallAcqua</figcaption>
-                                </figure>
-                            </a>
-                        </div>
+                        <template v-for="chunk in gallery">
+                            <div class="gallery__column">
+                                <a href="https://unsplash.com/@jeka_fe" target="_blank" class="gallery__link" v-for="item in chunk">
+                                    <figure class="gallery__thumb">
+                                        <img :src="item.image" :alt="item.name" class="gallery__image">
+                                        <figcaption class="gallery__caption">{{ item.name }}</figcaption>
+                                    </figure>
+                                </a>
+                            </div>
+                        </template>
                     </div>
                 </div>
             </div>
@@ -129,13 +131,20 @@ defineProps({
                     </div>
                 </div>
             </div>
-            <div class="bg-gray-200">
-                <div class="border max-w-7xl items-center w-full mx-auto" style="height: 580px">
-
+            <div class="bg-gray-50">
+                <div class="border max-w-7xl items-center w-full mx-auto py-24 text-center">
+                    <h3 class="text-2xl text-gray-600 mb-5 tracking-widest">Some of my</h3>
+                    <h2 class="text-7xl text-gray-700 font-bold mb-12">COLLABORATIVES</h2>
                 </div>
             </div>
-            <div class="bg-brown-200">
-                <div class="border max-w-7xl w-full mx-auto" style="height: 250px"></div>
+            <div class="bg-gray-800">
+                <div class="max-w-7xl w-full mx-auto flex p-32">
+                    <div class="mx-auto">
+                        <img src="/images/daya-micro-art-white.png" alt="Daya micro art">
+                        <div class="text-center pt-8 text-gray-300">&copy; Daya micro art - 2022</div>
+                        <div class="text-center pt-8 text-gray-300">&copy; Daya micro art - 2022</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -154,7 +163,7 @@ defineProps({
 .gallery__column {
     display: flex;
     flex-direction: column;
-    width: 25%;
+    width: 33.33%;
 }
 
 .gallery__link {
@@ -200,6 +209,7 @@ defineProps({
 
 .background-image {
     background: url("/storage/backgrounds/dayananda.png") top no-repeat;
+    background-position-y: 36px;
     background-size: contain;
 }
 
