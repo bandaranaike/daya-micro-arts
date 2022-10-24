@@ -142,7 +142,6 @@ let
                     <div class="mx-auto">
                         <img src="/images/daya-micro-art-white.png" alt="Daya micro art">
                         <div class="text-center pt-8 text-gray-300">&copy; Daya micro art - 2022</div>
-                        <div class="text-center pt-8 text-gray-300">&copy; Daya micro art - 2022</div>
                     </div>
                 </div>
             </div>
