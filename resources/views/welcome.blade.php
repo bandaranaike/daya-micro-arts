@@ -15,8 +15,8 @@
         </style>
 
         <style>
-            body {
-                font-family: 'Nunito', sans-serif;
+            body, .font-sans {
+                font-family: 'Poppins', sans-serif;
             }
         </style>
     </head>
