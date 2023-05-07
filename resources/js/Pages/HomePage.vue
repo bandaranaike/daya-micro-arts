@@ -95,7 +95,9 @@ onMounted(() => {
 </script>
 
 <template>
-    <Head title="Daya micro art"/>
+    <Head>
+        <title>Daya micro art</title>
+    </Head>
 
     <div class="font-sans text-gray-700 antialiased">
         <div class="min-h-screen flex flex-col">
@@ -111,12 +113,12 @@ onMounted(() => {
             </div>
             <div class="w-full mx-auto items-center text-center py-16 px-10">
                 <h3 class="text-2xl mb-5">The selected of</h3>
-                <h2 class="text-7xl font-bold mb-12">PORTFOLIO</h2>
+                <h2 class="md:text-7xl text-5xl font-bold mb-12">PORTFOLIO</h2>
 
 
-                <div class="flex mx-4 mb-5 border-l flex-grow">
-                    <div class="p-6 border-r border-b border-t text-xl">All</div>
-                    <div class="p-6 border-r border-b border-t text-xl" v-for="category in categories">{{ category.name }}</div>
+                <div class="flex mx-4 mb-5 border-l flex-grow flex-wrap">
+                    <div class="p-6 border-r border-b border-t text-xl -mb-1px">All</div>
+                    <div class="p-6 border-r border-b border-t text-xl -mb-1px" v-for="category in categories">{{ category.name }}</div>
                 </div>
 
 
@@ -139,7 +141,7 @@ onMounted(() => {
                 <div class="max-w-4xl text-center w-full mx-auto">
                     <div class="py-36">
                         <h3 class="text-2xl text-orange-300 mb-5 tracking-widest">Something</h3>
-                        <h2 class="text-7xl text-gray-50 font-bold mb-12">ABOUT ME</h2>
+                        <h2 class="md:text-7xl text-5xl text-gray-50 font-bold mb-12">ABOUT ME</h2>
                         <p class="text-2xl text-gray-400">
                             One of the world’s most talented micro carving artist which takes the <br> <b><i>“live micro carving art”</i></b> to next level
                             who making micro arts in rice grains, pencils and many other miro level objects.
@@ -150,13 +152,13 @@ onMounted(() => {
             <div class="bg-gray-50">
                 <div class="max-w-7xl items-center w-full mx-auto py-24 text-center">
                     <h3 class="text-2xl text-gray-600 mb-5 tracking-widest">Some of my</h3>
-                    <h2 class="text-7xl text-gray-700 font-bold mb-12">COLLABORATIVES</h2>
+                    <h2 class="md:text-7xl text-4xl text-gray-700 font-bold mb-12">COLLABORATIVES</h2>
                 </div>
             </div>
             <div class="bg-gray-800">
-                <div class="max-w-7xl w-full mx-auto flex p-32">
+                <div class="max-w-7xl w-full mx-auto flex py-32 px-10">
                     <div class="mx-auto">
-                        <img src="/images/logo.png" class="max-w-2xl" alt="Daya micro art">
+                        <img src="/images/logo.png" class="w-auto max-w-full" alt="Daya micro art">
                         <div class="text-center pt-8 text-gray-300">&copy; Daya micro art - 2022</div>
                     </div>
                 </div>
@@ -224,6 +226,10 @@ onMounted(() => {
     background: url("/storage/backgrounds/dayananda.jpg") top no-repeat;
     background-position-y: center;
     background-size: cover;
+}
+
+.-mb-1px {
+    margin-bottom: -1px;
 }
 
 </style>

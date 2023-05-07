@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ContactController;
 use Illuminate\Foundation\Application;
 
 //use Illuminate\Support\Facades\Artisan;
@@ -41,3 +42,9 @@ Route::middleware([
 Route::delete("categories", [CategoryController::class, "destroy"]);
 Route::get("categories", [CategoryController::class, "index"]);
 Route::post("categories", [CategoryController::class, "store"]);
+
+/**
+ * Parallal coding with eranda and kalinga
+ */
+Route::get('contact-us', [ContactController::class, 'index']);
+Route::post('contact-us', [ContactController::class, 'store']);
