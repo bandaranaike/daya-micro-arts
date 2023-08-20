@@ -2,6 +2,9 @@
 import {Head} from '@inertiajs/inertia-vue3';
 import {onMounted, ref} from "vue";
 import axios from "axios";
+import CartSvg from "../Icons/CartSvg.vue";
+import StarSvg from "../Icons/StarSvg.vue";
+import helpers from "../helpers";
 
 defineProps({
     terms: String,
@@ -9,84 +12,99 @@ defineProps({
 
 let
     gallery = [
-        [
-            {
-                name: "Train pencil carving",
-                image: '/storage/projects/1.jpg',
-                duration: 48,
-                date: '2022-03-15',
-                price: 750
-            },
-            {
-                name: "Train pencil carving",
-                image: '/storage/projects/2.jpg',
-                duration: 48,
-                date: '2022-03-15',
-                price: 750
-            },
-            {
-                name: "Train pencil carving",
-                image: '/storage/projects/3.jpg',
-                duration: 48,
-                date: '2022-03-15',
-                price: 750
-            }
-        ],
-        [
-            {
-                name: "Train pencil carving",
-                image: '/storage/projects/4.jpg',
-                duration: 48,
-                date: '2022-03-15',
-                price: 750
-            },
-            {
-                name: "Train pencil carving",
-                image: '/storage/projects/5.jpg',
-                duration: 48,
-                date: '2022-03-15',
-                price: 750
-            },
-            {
-                name: "Train pencil carving",
-                image: '/storage/projects/6.jpg',
-                duration: 48,
-                date: '2022-03-15',
-                price: 750
-            }
-        ],
-        [
-            {
-                name: "Train pencil carving",
-                image: '/storage/projects/7.jpg',
-                duration: 48,
-                date: '2022-03-15',
-                price: 750
-            },
-            {
-                name: "Train pencil carving",
-                image: '/storage/projects/5.jpg',
-                duration: 48,
-                date: '2022-03-15',
-                price: 750
-            },
-            {
-                name: "Train pencil carving",
-                image: '/storage/projects/8.jpg',
-                duration: 48,
-                date: '2022-03-15',
-                price: 750
-            }
-        ],
+
+        {
+            name: "Train pencil carving",
+            url: 'train-pencil-carving',
+            description: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident',
+            image: '/storage/projects/1.jpg',
+            duration: 48,
+            date: '2022-03-15',
+            category_id: 1,
+            price: 750
+        },
+        {
+            name: "Train pencil carving",
+            image: '/storage/projects/2.jpg',
+            duration: 48,
+            date: '2022-03-15',
+            price: 750
+        },
+        {
+            name: "Train pencil carving",
+            image: '/storage/projects/3.jpg',
+            duration: 48,
+            date: '2022-03-15',
+            price: 750
+        },
+        {
+            name: "Train pencil carving",
+            image: '/storage/projects/4.jpg',
+            duration: 48,
+            date: '2022-03-15',
+            price: 750
+        },
+        {
+            name: "Train pencil carving",
+            image: '/storage/projects/5.jpg',
+            duration: 48,
+            date: '2022-03-15',
+            price: 750
+        },
+        {
+            name: "Train pencil carving",
+            image: '/storage/projects/6.jpg',
+            duration: 48,
+            date: '2022-03-15',
+            price: 750
+        },
+        {
+            name: "Train pencil carving",
+            image: '/storage/projects/7.jpg',
+            duration: 48,
+            date: '2022-03-15',
+            price: 750
+        },
+        {
+            name: "Train pencil carving",
+            image: '/storage/projects/5.jpg',
+            duration: 48,
+            date: '2022-03-15',
+            price: 750
+        },
+        {
+            name: "Train pencil carving",
+            image: '/storage/projects/8.jpg',
+            duration: 48,
+            date: '2022-03-15',
+            price: 750
+        }
     ];
 
 let categories = ref([]);
+let selectedCategories = ref([0]);
 
 function getCategories() {
     axios.get('/categories').then((r) => {
         categories.value = r.data;
     })
 }
+
+function toggleCategory(categoryId) {
+    let allCategoryId = 0;
+
+    if (categoryId === allCategoryId) {
+        selectedCategories.value = [allCategoryId]
+    } else {
+        helpers.arrayRemoveItem(selectedCategories.value, allCategoryId)
+        if (selectedCategories.value.includes(categoryId)) {
+            helpers.arrayRemoveItem(selectedCategories.value, categoryId)
+        } else {
+            selectedCategories.value.push(categoryId)
+        }
+    }
+}
+
 
 onMounted(() => {
     getCategories();
@@ -114,23 +132,63 @@ onMounted(() => {
             <div class="w-full mx-auto items-center text-center py-16 px-10">
                 <h3 class="text-2xl mb-5">The selected of</h3>
                 <h2 class="md:text-7xl text-5xl font-bold mb-12">PORTFOLIO</h2>
+                <div class="mx-48">
+                    <div class="mb-2 mt-6 font-bold"> Pencil Carving:</div>
+                    <p class="text-gray-500">
+                        Pencil carving is a delicate art form that allows me to transform ordinary graphite pencils into stunning sculptures. With meticulous attention to detail
+                        and a
+                        steady hand, I carve intricate patterns, designs, and even miniature figures directly onto the graphite. Each piece reflects hours of dedication and a deep
+                        appreciation for the fusion of art and craftsmanship.
+                    </p>
+                    <div class="mb-2 mt-6 font-bold"> Micro Arts in Rice Grains:</div>
 
+                    <p class="text-gray-500">
+                        One of my unique specialties is creating micro artworks on rice grains. This challenging medium demands exceptional precision and patience. By using the
+                        natural
+                        texture and size of rice grains as my canvas, I craft breathtaking scenes, symbols, and portraits that capture the essence of life in a miniature form. Each
+                        grain becomes a testament to the beauty that can be found in the smallest of spaces.
+                    </p>
+                </div>
 
-                <div class="flex mx-4 mb-5 border-l flex-grow flex-wrap">
-                    <div class="p-6 border-r border-b border-t text-xl -mb-1px">All</div>
-                    <div class="p-6 border-r border-b border-t text-xl -mb-1px" v-for="category in categories">{{ category.name }}</div>
+                <div class="flex mt-20 mb-5 border-l flex-grow flex-wrap text-sm rounded-l [&>*:last-child]:rounded-r">
+                    <div class="px-3 py-1 border-r border-b border-t -mb-1px cursor-pointer"
+                         :class="{'bg-gray-200': selectedCategories.includes(0)}"
+                         @click="toggleCategory(0)">All
+                    </div>
+                    <div class="px-3 py-1 border-r border-b border-t -mb-1px cursor-pointer"
+                         :class="{'bg-gray-200 border-x-gray-300': selectedCategories.includes(category.id)}"
+                         @click="toggleCategory(category.id)" v-for="category in categories">{{
+                            category.name
+                        }}
+                    </div>
                 </div>
 
 
                 <div class="pb-8">
-                    <div class="gallery mt-4 ml-4">
-                        <template v-for="chunk in gallery">
-                            <div class="gallery__column">
-                                <a href="" target="_blank" class="gallery__link mb-4 mr-4" v-for="item in chunk">
-                                    <figure class="gallery__thumb">
-                                        <img :src="item.image" :alt="item.name" class="gallery__image">
-                                        <figcaption class="gallery__caption">{{ item.name }}</figcaption>
-                                    </figure>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                        <template v-for="item in gallery">
+                            <div class="shadow rounded text-left">
+                                <a :href="item.url">
+                                    <img :src="item.image" :alt="item.name" class="object-cover bg-top h-64 w-full rounded-t">
+                                    <div class="p-6">
+                                        <div class="pt-4 pb-3 text-xl font-bold">{{ item.name }}</div>
+                                        <div class="pb-3 font-bold text-orange-500">${{ item.price }}</div>
+                                        <div class="pb-5 text-gray-500 text-sm">{{ item.description }}</div>
+                                        <div class="inline-flex space-x-4">
+                                            <div class="flex text-green-600 rounded bg-green-100 py-1 px-2 text-xs">
+                                                {{ item.duration }} hours
+                                            </div>
+                                            <div class="flex text-gay-600 rounded bg-gray-100 py-1 px-2 text-xs">
+                                             <span class="text-yellow-500">
+                                                 <star-svg></star-svg>
+                                             </span> 4.6<span class="text-gray-400">(23)</span>
+                                            </div>
+                                            <button class="bg-blue-600 text-white rounded py-1 px-3 text-xs">
+                                                <cart-svg></cart-svg>
+                                                Add to cart
+                                            </button>
+                                        </div>
+                                    </div>
                                 </a>
                             </div>
                         </template>
@@ -143,8 +201,9 @@ onMounted(() => {
                         <h3 class="text-2xl text-orange-300 mb-5 tracking-widest">Something</h3>
                         <h2 class="md:text-7xl text-5xl text-gray-50 font-bold mb-12">ABOUT ME</h2>
                         <p class="text-2xl text-gray-400">
-                            One of the world’s most talented micro carving artist which takes the <br> <b><i>“live micro carving art”</i></b> to next level
-                            who making micro arts in rice grains, pencils and many other miro level objects.
+                            Hello, I'm Dayananda, a passionate artist based in Sri Lanka. I've developed a deep love for the intricate world of pencil carving and micro arts using
+                            rice
+                            grains. Through my creations, I aim to bring together the precision of technology and the elegance of art.
                         </p>
                     </div>
                 </div>
@@ -167,61 +226,6 @@ onMounted(() => {
     </div>
 </template>
 <style>
-.gallery {
-    display: flex;
-    transition: 0.3s;
-}
-
-.gallery:hover .gallery__image {
-    filter: grayscale(1);
-}
-
-.gallery__column {
-    display: flex;
-    flex-direction: column;
-    width: 33.33%;
-}
-
-.gallery__link {
-    overflow: hidden;
-}
-
-.gallery__link:hover .gallery__image {
-    filter: grayscale(0);
-}
-
-.gallery__link:hover .gallery__caption {
-    opacity: 1;
-}
-
-.gallery__thumb {
-    position: relative;
-}
-
-.gallery__image {
-    display: block;
-    width: 100%;
-    transition: 0.3s;
-}
-
-.gallery__image:hover {
-    transform: scale(1.1);
-}
-
-.gallery__caption {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    padding: 25px 15px 15px;
-    width: 100%;
-    font-family: "Raleway", sans-serif;
-    font-size: 16px;
-    color: white;
-    opacity: 0;
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
-    transition: 0.3s;
-}
-
 .background-image {
     background: url("/storage/backgrounds/dayananda.jpg") top no-repeat;
     background-position-y: center;
