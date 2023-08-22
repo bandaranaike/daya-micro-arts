@@ -10,10 +10,13 @@ use App\Models\Art;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Response;
+use Inertia\Inertia;
 
 class ArtController extends Controller
 {
     use SaveArtTrait;
+
+    const HOME_PAGE_GALLERY_LIMIT = 12;
 
     /**
      * Display a listing of the resource.
@@ -23,6 +26,16 @@ class ArtController extends Controller
     public function index(): JsonResponse
     {
         $arts = Art::query()->paginate(IntSystemConfigEnum::DEFAULT_PAGINATION_PER_PAGE);
+        return new JsonResponse(ArtResource::collection($arts));
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return JsonResponse
+     */
+    public function getArtsForHomePage(): JsonResponse
+    {
+        $arts = Art::query()->paginate(self::HOME_PAGE_GALLERY_LIMIT);
         return new JsonResponse(ArtResource::collection($arts));
     }
 
@@ -52,11 +65,11 @@ class ArtController extends Controller
      * Display the specified resource.
      *
      * @param Art $art
-     * @return Response
+     * @return \Inertia\Response
      */
-    public function show(Art $art)
+    public function show(Art $art): \Inertia\Response
     {
-        //
+        return Inertia::render('ShowArt', compact('art'));
     }
 
     /**

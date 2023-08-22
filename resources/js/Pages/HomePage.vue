@@ -10,83 +10,19 @@ defineProps({
     terms: String,
 });
 
-let
-    gallery = [
-
-        {
-            name: "Train pencil carving",
-            url: 'train-pencil-carving',
-            description: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident',
-            image: '/storage/projects/1.jpg',
-            duration: 48,
-            date: '2022-03-15',
-            category_id: 1,
-            price: 750
-        },
-        {
-            name: "Train pencil carving",
-            image: '/storage/projects/2.jpg',
-            duration: 48,
-            date: '2022-03-15',
-            price: 750
-        },
-        {
-            name: "Train pencil carving",
-            image: '/storage/projects/3.jpg',
-            duration: 48,
-            date: '2022-03-15',
-            price: 750
-        },
-        {
-            name: "Train pencil carving",
-            image: '/storage/projects/4.jpg',
-            duration: 48,
-            date: '2022-03-15',
-            price: 750
-        },
-        {
-            name: "Train pencil carving",
-            image: '/storage/projects/5.jpg',
-            duration: 48,
-            date: '2022-03-15',
-            price: 750
-        },
-        {
-            name: "Train pencil carving",
-            image: '/storage/projects/6.jpg',
-            duration: 48,
-            date: '2022-03-15',
-            price: 750
-        },
-        {
-            name: "Train pencil carving",
-            image: '/storage/projects/7.jpg',
-            duration: 48,
-            date: '2022-03-15',
-            price: 750
-        },
-        {
-            name: "Train pencil carving",
-            image: '/storage/projects/5.jpg',
-            duration: 48,
-            date: '2022-03-15',
-            price: 750
-        },
-        {
-            name: "Train pencil carving",
-            image: '/storage/projects/8.jpg',
-            duration: 48,
-            date: '2022-03-15',
-            price: 750
-        }
-    ];
 
 let categories = ref([]);
+let gallery = ref([]);
 let selectedCategories = ref([0]);
 
 function getCategories() {
     axios.get('/categories').then((r) => {
         categories.value = r.data;
+    })
+}
+function getGalleries() {
+    axios.get('/galleries').then((r) => {
+        gallery.value = r.data;
     })
 }
 
@@ -108,6 +44,7 @@ function toggleCategory(categoryId) {
 
 onMounted(() => {
     getCategories();
+    getGalleries();
 });
 
 </script>
@@ -166,17 +103,17 @@ onMounted(() => {
 
                 <div class="pb-8">
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-                        <template v-for="item in gallery">
+                        <template v-for="art in gallery">
                             <div class="shadow rounded text-left">
-                                <a :href="item.url">
-                                    <img :src="item.image" :alt="item.name" class="object-cover bg-top h-64 w-full rounded-t">
+                                <a :href="`/art/${art.uuid}`">
+                                    <img :src="`/storage/projects/${art.image}`" :alt="art.title" class="object-cover bg-top h-64 w-full rounded-t">
                                     <div class="p-6">
-                                        <div class="pt-4 pb-3 text-xl font-bold">{{ item.name }}</div>
-                                        <div class="pb-3 font-bold text-orange-500">${{ item.price }}</div>
-                                        <div class="pb-5 text-gray-500 text-sm">{{ item.description }}</div>
+                                        <div class="pt-4 pb-3 text-xl font-bold">{{ art.title }}</div>
+                                        <div class="pb-3 font-bold text-orange-500">${{ art.price }}</div>
+                                        <div class="pb-5 text-gray-500 text-sm">{{ art.description }}</div>
                                         <div class="inline-flex space-x-4">
                                             <div class="flex text-green-600 rounded bg-green-100 py-1 px-2 text-xs">
-                                                {{ item.duration }} hours
+                                                {{ art.duration }} hours
                                             </div>
                                             <div class="flex text-gay-600 rounded bg-gray-100 py-1 px-2 text-xs">
                                              <span class="text-yellow-500">
@@ -215,7 +152,7 @@ onMounted(() => {
                 </div>
             </div>
             <div class="bg-gray-800">
-                <div class="max-w-7xl w-full mx-auto flex py-32 px-10">
+                <div class="max-w-xl w-full mx-auto flex py-32 px-10">
                     <div class="mx-auto">
                         <img src="/images/logo.png" class="w-auto max-w-full" alt="Daya micro art">
                         <div class="text-center pt-8 text-gray-300">&copy; Daya micro art - 2022</div>

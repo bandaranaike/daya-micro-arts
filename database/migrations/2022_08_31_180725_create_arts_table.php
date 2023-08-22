@@ -14,6 +14,7 @@ return new class extends Migration {
     {
         Schema::create('art', function (Blueprint $table) {
             $table->id();
+            $table->uuid();
             $table->string('title')->nullable();
             $table->text('description')->nullable();
             $table->double('price')->nullable();

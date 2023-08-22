@@ -17,6 +17,11 @@ class Art extends Model
 {
     use HasFactory;
 
+    public function getRouteKeyName(): string
+    {
+        return 'uuid';
+    }
+
     /**
      * @return BelongsTo
      */

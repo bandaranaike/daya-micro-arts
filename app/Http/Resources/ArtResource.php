@@ -12,6 +12,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $duration
  * @property mixed $date
  * @property mixed $price
+ * @property mixed $description
+ * @property mixed $uuid
  */
 class ArtResource extends JsonResource
 {
@@ -24,11 +26,13 @@ class ArtResource extends JsonResource
     public function toArray($request): array
     {
         return [
-            "name" => $this->title,
+            "title" => $this->title,
+            "uuid" => $this->uuid,
             "image" => $this->image,
             "duration" => $this->duration,
             "date" => $this->date,
-            "price" => $this->price
+            "price" => $this->price,
+            "description" => $this->description
         ];
     }
 }

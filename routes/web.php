@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArtController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use Illuminate\Foundation\Application;
@@ -43,8 +44,12 @@ Route::delete("categories", [CategoryController::class, "destroy"]);
 Route::get("categories", [CategoryController::class, "index"]);
 Route::post("categories", [CategoryController::class, "store"]);
 
-/**
- * Parallal coding with eranda and kalinga
- */
 Route::get('contact-us', [ContactController::class, 'index']);
 Route::post('contact-us', [ContactController::class, 'store']);
+
+/**
+ * Art
+ */
+Route::get('arts', [ArtController::class, 'showAll']);
+Route::get('galleries', [ArtController::class, 'getArtsForHomePage']);
+Route::get('art/{art}', [ArtController::class, 'show']);
