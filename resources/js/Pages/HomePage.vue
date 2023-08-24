@@ -149,6 +149,9 @@ onMounted(() => {
                 <div class="max-w-7xl items-center w-full mx-auto py-24 text-center">
                     <h3 class="text-2xl text-gray-600 mb-5 tracking-widest">Some of my</h3>
                     <h2 class="md:text-7xl text-4xl text-gray-700 font-bold mb-12">COLLABORATIVES</h2>
+                    <p class="text-xl px-20 text-gray-600">In the world of art, creativity knows no bounds. Pencil carving and rice grain art are two fascinating forms of artistic expression that captivate the
+                        imagination through intricate detailing and meticulous craftsmanship. This website aims to bring together enthusiasts, artists, and admirers of these unique
+                        art forms in a collaborative section that fosters sharing, learning, and mutual appreciation.</p>
                 </div>
             </div>
             <div class="bg-gray-800">

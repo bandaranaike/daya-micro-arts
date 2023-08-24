@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArtController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use Illuminate\Foundation\Application;
@@ -53,3 +54,6 @@ Route::post('contact-us', [ContactController::class, 'store']);
 Route::get('arts', [ArtController::class, 'showAll']);
 Route::get('galleries', [ArtController::class, 'getArtsForHomePage']);
 Route::get('art/{art}', [ArtController::class, 'show']);
+
+
+Route::get('cart/show', [CartController::class, 'show']);
