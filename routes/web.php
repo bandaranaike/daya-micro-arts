@@ -4,6 +4,7 @@ use App\Http\Controllers\ArtController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\StripeProductController;
 use Illuminate\Foundation\Application;
 
 //use Illuminate\Support\Facades\Artisan;
@@ -57,3 +58,11 @@ Route::get('art/{art}', [ArtController::class, 'show']);
 
 
 Route::get('cart/show', [CartController::class, 'show']);
+
+Route::get('stripe/get-price-list', [StripeProductController::class, 'saveInDatabaseAllProductsFromStripe']);
+
+Route::any('hooks', [ArtController::class, 'getPricesFromStripe']);
+
+Route::webhooks('webhook-url-1', 'application-one');
+
+

@@ -7,10 +7,12 @@ use App\Http\Requests\StoreArtRequest;
 use App\Http\Requests\UpdateArtRequest;
 use App\Http\Resources\ArtResource;
 use App\Models\Art;
+use App\Services\StripeService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Response;
 use Inertia\Inertia;
+use Stripe\StripeClient;
 
 class ArtController extends Controller
 {
@@ -105,5 +107,11 @@ class ArtController extends Controller
     public function destroy(Art $art): JsonResponse
     {
         return new JsonResponse($art->delete());
+    }
+
+    public function getPricesFromStripe(){
+        $stripe = StripeService::make();
+//       return $stripe->prices->all(['limit' => 3]);
+       return $stripe->products->all(['limit' => 3]);
     }
 }
