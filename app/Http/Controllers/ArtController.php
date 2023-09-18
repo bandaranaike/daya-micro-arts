@@ -30,6 +30,7 @@ class ArtController extends Controller
         $arts = Art::query()->paginate(IntSystemConfigEnum::DEFAULT_PAGINATION_PER_PAGE);
         return new JsonResponse(ArtResource::collection($arts));
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -48,7 +49,7 @@ class ArtController extends Controller
      */
     public function create()
     {
-
+       return Inertia::render('Admin/CreateArt');
     }
 
     /**
@@ -109,9 +110,10 @@ class ArtController extends Controller
         return new JsonResponse($art->delete());
     }
 
-    public function getPricesFromStripe(){
+    public function getPricesFromStripe()
+    {
         $stripe = StripeService::make();
 //       return $stripe->prices->all(['limit' => 3]);
-       return $stripe->products->all(['limit' => 3]);
+        return $stripe->products->all(['limit' => 3]);
     }
 }
