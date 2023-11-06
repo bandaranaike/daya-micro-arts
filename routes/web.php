@@ -54,7 +54,8 @@ Route::post('contact-us', [ContactController::class, 'store']);
  */
 Route::get('arts', [ArtController::class, 'showAll']);
 Route::get('galleries', [ArtController::class, 'getArtsForHomePage']);
-Route::get('art/create', [ArtController::class, 'create'])->name('create-art');
+Route::get('art/create', [ArtController::class, 'create'])->name('art.create-art');
+Route::post('art/create', [ArtController::class, 'store'])->name('art.store-art');
 Route::get('art/{art}', [ArtController::class, 'show']);
 
 
