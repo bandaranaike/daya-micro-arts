@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->text('description')->nullable();
             $table->double('price')->nullable();
             $table->string('image')->nullable();
-            $table->double('duration')->nullable();
+            $table->string('duration', 50)->nullable();
             $table->date('date')->nullable();
             $table->timestamps();
         });

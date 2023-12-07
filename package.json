@@ -22,6 +22,7 @@
         "vue": "^3.2.31"
     },
     "dependencies": {
-        "@vue-stripe/vue-stripe": "^4.5.0"
+        "@vue-stripe/vue-stripe": "^4.5.0",
+        "@vuepic/vue-datepicker": "^7.2.2"
     }
 }

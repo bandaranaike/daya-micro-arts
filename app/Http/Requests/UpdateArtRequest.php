@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateArtRequest extends FormRequest
 {
@@ -11,9 +12,10 @@ class UpdateArtRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
-        return false;
+        return true;
+//        return Auth::check();
     }
 
     /**
@@ -24,7 +26,7 @@ class UpdateArtRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+
         ];
     }
 }

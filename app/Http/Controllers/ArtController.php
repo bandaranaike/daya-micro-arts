@@ -12,6 +12,9 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Response;
 use Inertia\Inertia;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
+use Stripe\Exception\ApiErrorException;
 use Stripe\StripeClient;
 
 class ArtController extends Controller
@@ -49,7 +52,7 @@ class ArtController extends Controller
      */
     public function create()
     {
-       return Inertia::render('Admin/CreateArt');
+        return Inertia::render('Admin/CreateArt');
     }
 
     /**
@@ -57,10 +60,21 @@ class ArtController extends Controller
      *
      * @param StoreArtRequest $request
      * @return JsonResponse
+     * @throws ContainerExceptionInterface
      */
     public function store(StoreArtRequest $request): JsonResponse
     {
-        $this->saveExecute(new Art(), $request);
+
+
+        try {
+            $this->saveExecute(new Art(), $request);
+        } catch (NotFoundExceptionInterface|ContainerExceptionInterface $e) {
+            return new JsonResponse($e->getMessage(), Response::HTTP_BAD_GATEWAY);
+        } catch (ApiErrorException $e) {
+            return new JsonResponse($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
+
         return new JsonResponse("Success!");
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreArtRequest extends FormRequest
 {
@@ -11,9 +12,10 @@ class StoreArtRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
-        return false;
+     return true;
+//        return Auth::check();
     }
 
     /**
@@ -21,10 +23,11 @@ class StoreArtRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            //
+            'title' => ['required'],
+            'price' => ['required']
         ];
     }
 }
