@@ -1,5 +1,5 @@
 <script setup>
-import {Head} from '@inertiajs/inertia-vue3';
+import {Head} from '@inertiajs/vue3';
 import {onMounted, ref} from "vue";
 import axios from "axios";
 import CartSvg from "../Icons/CartSvg.vue";

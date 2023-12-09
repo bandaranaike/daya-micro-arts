@@ -23,7 +23,7 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    Illuminate\Support\Facades\Artisan::call('storage:link');
+//    Illuminate\Support\Facades\Artisan::call('storage:link');
     return Inertia::render('HomePage', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -54,7 +54,7 @@ Route::post('contact-us', [ContactController::class, 'store']);
  */
 Route::get('arts', [ArtController::class, 'showAll']);
 Route::get('galleries', [ArtController::class, 'getArtsForHomePage']);
-Route::get('art/create', [ArtController::class, 'create'])->name('art.create-art');
+Route::get('art/create', [ArtController::class, 'create'])->middleware('auth')->name('art.create-art');
 Route::post('art/create', [ArtController::class, 'store'])->name('art.store-art');
 Route::get('art/{art}', [ArtController::class, 'show']);
 
