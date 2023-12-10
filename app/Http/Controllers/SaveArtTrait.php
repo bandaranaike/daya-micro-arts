@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Config\StringCurrencyEnum;
 use App\Http\Requests\StoreArtRequest;
 use App\Http\Requests\UpdateArtRequest;
+use App\Models\Art;
 use App\Services\StripeService;
 use Carbon\Carbon;
 use Exception;
@@ -20,31 +21,30 @@ trait SaveArtTrait
     /**
      * @param $art
      * @param UpdateArtRequest|StoreArtRequest $request
-     * @return string
+     * @return Art
      * @throws ApiErrorException
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
-    public function saveExecute($art, UpdateArtRequest|StoreArtRequest $request): string
+    public function saveExecute($art, UpdateArtRequest|StoreArtRequest $request): Art
     {
         $name = $request->get('title');
         $price = $request->get('price');
 
 
         $product = $this->createProductInStripe($name, $price);
-        dd(Carbon::parse(Str::remove(" (India Standard Time)", $request->get('date'))));
-        dd($request->get('date'));
-dd(date("Y-m-d",strtotime()));
         $art->title = $name;
         $art->duration = $request->get('duration');
-        $art->date = Carbon::createFromDate($request->get('date'));
+        $art->date = Carbon::parse(Str::remove(" (India Standard Time)", $request->get('date')));
         $art->price = $price;
-        $art->uuid = $product->id;
+        $art->stripe_id = $product->id;
+        $art->uuid = Str::uuid()->toString();
 
         if ($request->hasFile('image')) {
             $art->image = $request->file('image')->move(Storage::path('projects'));
         }
-        return $art->save();
+        $art->save();
+        return $art;
     }
 
     /**

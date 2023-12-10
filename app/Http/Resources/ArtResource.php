@@ -14,6 +14,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $price
  * @property mixed $description
  * @property mixed $uuid
+ * @property mixed $currency
  */
 class ArtResource extends JsonResource
 {
@@ -30,9 +31,11 @@ class ArtResource extends JsonResource
             "uuid" => $this->uuid,
             "image" => $this->image,
             "duration" => $this->duration,
+            "category" => $this->category,
             "date" => $this->date,
             "price" => $this->price,
-            "description" => $this->description
+            "description" => $this->description,
+            "currency" => $this->currency,
         ];
     }
 }

@@ -17,6 +17,8 @@ class Art extends Model
 {
     use HasFactory;
 
+    CONST ALL_CATEGORY_ID = 0;
+
     public function getRouteKeyName(): string
     {
         return 'uuid';
