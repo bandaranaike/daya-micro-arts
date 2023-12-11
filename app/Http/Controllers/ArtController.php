@@ -86,10 +86,10 @@ class ArtController extends Controller
      */
     public function show($artId): \Inertia\Response
     {
-        $art = Art::query()->with('category')->select([
-            'id', 'title', 'price', 'image', 'duration',
-            'category_id', 'currency', 'stripe_id'
-        ])->where('id', $artId)->firstOrFail();
+        $art = Art::query()->with('category:id,name')->select([
+            'id', 'title', 'price', 'image', 'duration', 'currency',
+            'category_id', 'currency', 'stripe_id', 'description'
+        ])->where('uuid', $artId)->firstOrFail();
         return Inertia::render('ShowArt', compact('art'));
     }
 

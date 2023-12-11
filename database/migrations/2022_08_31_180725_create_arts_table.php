@@ -15,10 +15,13 @@ return new class extends Migration {
         Schema::create('art', function (Blueprint $table) {
             $table->id();
             $table->uuid();
+            $table->string('stripe_id')->nullable();
+            $table->unsignedSmallInteger('category_id');
             $table->string('title')->nullable();
             $table->text('description')->nullable();
             $table->double('price')->nullable();
-            $table->string('image')->nullable();
+            $table->string('currency');
+            $table->string('image')->default('default.png')->nullable();
             $table->string('duration', 50)->nullable();
             $table->date('date')->nullable();
             $table->timestamps();

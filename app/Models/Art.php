@@ -19,11 +19,6 @@ class Art extends Model
 
     CONST ALL_CATEGORY_ID = 0;
 
-    public function getRouteKeyName(): string
-    {
-        return 'uuid';
-    }
-
     /**
      * @return BelongsTo
      */

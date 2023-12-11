@@ -35,12 +35,16 @@ trait SaveArtTrait
         $product = $this->createProductInStripe($name, $price);
         $art->title = $name;
         $art->duration = $request->get('duration');
+        $art->description = $request->get('description');
         $art->date = Carbon::parse(Str::remove(" (India Standard Time)", $request->get('date')));
+        $art->currency = $request->get('currency');
         $art->price = $price;
         $art->stripe_id = $product->id;
         $art->uuid = Str::uuid()->toString();
 
+        dd($request->files('image'));
         if ($request->hasFile('image')) {
+            dd("came");
             $art->image = $request->file('image')->move(Storage::path('projects'));
         }
         $art->save();
