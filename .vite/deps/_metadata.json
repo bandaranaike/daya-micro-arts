@@ -1,0 +1,56 @@
+{
+  "hash": "e7e8bd89",
+  "browserHash": "df7e535d",
+  "optimized": {
+    "vue": {
+      "src": "../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
+      "file": "vue.js",
+      "fileHash": "90ed3a3e",
+      "needsInterop": false
+    },
+    "@inertiajs/vue3": {
+      "src": "../../node_modules/@inertiajs/vue3/dist/index.esm.js",
+      "file": "@inertiajs_vue3.js",
+      "fileHash": "d82a9b95",
+      "needsInterop": false
+    },
+    "laravel-vite-plugin/inertia-helpers": {
+      "src": "../../node_modules/laravel-vite-plugin/inertia-helpers/index.js",
+      "file": "laravel-vite-plugin_inertia-helpers.js",
+      "fileHash": "bb006f75",
+      "needsInterop": false
+    },
+    "axios": {
+      "src": "../../node_modules/axios/index.js",
+      "file": "axios.js",
+      "fileHash": "65b52039",
+      "needsInterop": false
+    },
+    "@vuepic/vue-datepicker": {
+      "src": "../../node_modules/@vuepic/vue-datepicker/dist/vue-datepicker.js",
+      "file": "@vuepic_vue-datepicker.js",
+      "fileHash": "abaa3c2b",
+      "needsInterop": false
+    },
+    "@vue/shared": {
+      "src": "../../node_modules/@vue/shared/dist/shared.esm-bundler.js",
+      "file": "@vue_shared.js",
+      "fileHash": "f9edbb32",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-H2B3PL6K": {
+      "file": "chunk-H2B3PL6K.js"
+    },
+    "chunk-4O36C4ZS": {
+      "file": "chunk-4O36C4ZS.js"
+    },
+    "chunk-PL3DAU3Z": {
+      "file": "chunk-PL3DAU3Z.js"
+    },
+    "chunk-5WWUZCGV": {
+      "file": "chunk-5WWUZCGV.js"
+    }
+  }
+}
