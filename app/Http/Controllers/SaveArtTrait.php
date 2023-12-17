@@ -39,13 +39,12 @@ trait SaveArtTrait
         $art->date = Carbon::parse(Str::remove(" (India Standard Time)", $request->get('date')));
         $art->currency = $request->get('currency');
         $art->price = $price;
+        $art->stripe_price_id = $product->default_price;
         $art->stripe_id = $product->id;
         $art->uuid = Str::uuid()->toString();
 
-        dd($request->files('image'));
         if ($request->hasFile('image')) {
-            dd("came");
-            $art->image = $request->file('image')->move(Storage::path('projects'));
+            $art->image = Str::remove("public/projects/", $request->file('image')->store('public/projects'));
         }
         $art->save();
         return $art;

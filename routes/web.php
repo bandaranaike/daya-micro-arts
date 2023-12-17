@@ -55,6 +55,8 @@ Route::get('arts', [ArtController::class, 'showAll']);
 Route::get('galleries', [ArtController::class, 'getArtsForHomePage']);
 Route::get('art/create', [ArtController::class, 'create'])->middleware('auth')->name('art.create-art');
 Route::post('art/create', [ArtController::class, 'store'])->name('art.store-art');
+Route::get('art/canceled', [ArtController::class, 'paymentCanceled']);
+Route::get('art/success', [ArtController::class, 'paymentSuccess']);
 Route::get('art/{art}', [ArtController::class, 'show']);
 
 

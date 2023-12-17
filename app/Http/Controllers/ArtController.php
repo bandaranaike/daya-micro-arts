@@ -55,7 +55,7 @@ class ArtController extends Controller
      *
      * @return \Inertia\Response
      */
-    public function create()
+    public function create(): \Inertia\Response
     {
         return Inertia::render('CreateArt');
     }
@@ -87,8 +87,8 @@ class ArtController extends Controller
     public function show($artId): \Inertia\Response
     {
         $art = Art::query()->with('category:id,name')->select([
-            'id', 'title', 'price', 'image', 'duration', 'currency',
-            'category_id', 'currency', 'stripe_id', 'description'
+            'id', 'title', 'price', 'image', 'duration', 'currency', 'uuid',
+            'category_id', 'currency', 'stripe_id', 'stripe_price_id', 'description'
         ])->where('uuid', $artId)->firstOrFail();
         return Inertia::render('ShowArt', compact('art'));
     }
@@ -107,9 +107,12 @@ class ArtController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \App\Http\Requests\UpdateArtRequest $request
+     * @param UpdateArtRequest $request
      * @param Art $art
      * @return JsonResponse
+     * @throws ApiErrorException
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      */
     public function update(UpdateArtRequest $request, Art $art): JsonResponse
     {
@@ -117,7 +120,8 @@ class ArtController extends Controller
         return new JsonResponse("Success!");
     }
 
-    /**
+    /**paymentCanceled
+     * paymentSuccess
      * Remove the specified resource from storage.
      *
      * @param Art $art
@@ -131,7 +135,16 @@ class ArtController extends Controller
     public function getPricesFromStripe()
     {
         $stripe = StripeService::make();
-//       return $stripe->prices->all(['limit' => 3]);
         return $stripe->products->all(['limit' => 3]);
+    }
+
+    public function paymentCanceled(): \Inertia\Response
+    {
+        return Inertia::render('PaymentCanceled');
+    }
+
+    public function paymentSuccess(): \Inertia\Response
+    {
+        return Inertia::render('PaymentSuccess');
     }
 }

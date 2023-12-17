@@ -20,6 +20,7 @@
     },
     "dependencies": {
         "@vue-stripe/vue-stripe": "^4.5.0",
-        "@vuepic/vue-datepicker": "^7.3.0"
+        "@vuepic/vue-datepicker": "^7.3.0",
+        "dotenv-webpack": "^8.0.1"
     }
 }

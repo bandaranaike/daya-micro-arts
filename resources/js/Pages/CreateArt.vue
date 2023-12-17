@@ -49,7 +49,7 @@
                             file</label>
                         <input
                             ref="artFile"
-                            v-on:change="setFileToForm"
+                            @change="setFileToForm"
                             class="block w-full text-sm text-gray-900 border border-gray-300 rounded px-4 mb-3 leading-tight cursor-pointer bg-gray-50 focus:outline-none"
                             aria-describedby="user_avatar_help" id="user_avatar" type="file">
                     </div>
@@ -167,7 +167,7 @@
 </template>
 
 <script setup>
-import {onMounted, ref} from "vue";
+import {onMounted, reactive, ref} from "vue";
 import axios from "axios";
 
 import VueDatePicker from '@vuepic/vue-datepicker'
@@ -191,36 +191,35 @@ let currency = ref('lkr')
 let isArtSaving = ref(false)
 let showSuccess = ref(false)
 
-let form = ref({
+let form = reactive({
     title: null,
     category: 2,
     description: null,
-    image: null,
     duration: null,
-    date: null,
+    date: new Date(),
     price: null,
     currency,
 })
 
 
 function setFileToForm(item) {
-    artFile = item.target?.files[0];
+    artFile.value = item.target?.files[0];
 }
 
 function saveProduct() {
     isArtSaving.value = true;
     const formData = new FormData();
-    Object.keys(form.value).forEach(key => formData.append(key, form.value[key]));
+    Object.keys(form).forEach(key => formData.append(key, form[key]));
 
-    if (artFile) {
-        formData.append('file', artFile);
+    if (artFile.value) {
+        formData.append('image', artFile.value);
     }
     axios.post('/art/create', formData, {
         headers: {
             'Content-type': 'multipart/form-data'
         }
     }).then(response => {
-        form.value = {}
+        form = {}
         artFile.value = null
         createdArt.value = response.data
         showSuccess.value = true
