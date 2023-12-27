@@ -32,10 +32,11 @@ defineProps({
     <site-layout>
 
         <div class="mt-4">
-            <div class="grid grid-cols-3 gap-4">
-                <div class="col-span-2 mt-4"><img :src="'/storage/projects/' + (art.image ?? 'default.png')"
-                                                  :alt="art.title"></div>
-                <div class="p-8">
+            <div class="grid grid-cols-5 gap-4">
+                <div class="col-span-3 mt-4">
+                    <img :src="'/storage/projects/' + (art.image ?? 'default.png')" :alt="art.title">
+                </div>
+                <div class="p-8 col-span-2">
                     <h1 class="text-4xl text-gray-700 font-light leading-8"> {{ art.title }}</h1>
                     <div class="text-2xl text-orange-600 mt-2"> {{ art.category?.name }}</div>
                     <div class="font-bold text-xl mt-6 text-gray-600">About the art</div>
@@ -47,7 +48,7 @@ defineProps({
                     <div class="text-2xl text-gray-700 mt-8 font-bold tracking-tight">
                         {{ art.price.toFixed(2) }} {{ art.currency.toUpperCase() }}
                     </div>
-                    <div class="rounded-lg bg-orange-700 text-white  px-4 py-2 mt-2 inline-block">
+                    <div class="rounded bg-gray-600 text-white cursor-pointer px-4 py-2 mt-2 inline-block">
                         <cart-icon></cart-icon>
                         <stripe-checkout
                             ref="checkoutRef"

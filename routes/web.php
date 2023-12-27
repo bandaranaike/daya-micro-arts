@@ -67,3 +67,4 @@ Route::get('stripe/get-price-list', [StripeProductController::class, 'saveInData
 Route::any('hooks', [ArtController::class, 'getPricesFromStripe']);
 
 Route::webhooks('webhook-url-1', 'application-one');
+

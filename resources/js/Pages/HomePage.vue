@@ -66,7 +66,7 @@ watch(() => [...selectedCategories.value], () => {
         <div class="bg-black items-center">
             <div class="background-image w-full py-72"></div>
         </div>
-        <div class="w-full mx-auto items-center text-center py-16 px-10">
+        <div class="w-full mx-auto items-center text-center py-16 px-10 bg-white">
             <h3 class="text-2xl mb-5">The selected of</h3>
             <h2 class="md:text-7xl text-5xl font-bold mb-12">PORTFOLIO</h2>
             <div class="mx-48">
@@ -118,14 +118,14 @@ watch(() => [...selectedCategories.value], () => {
                                 <img :src="`/storage/projects/${art.image}`" :alt="art.title"
                                      class="object-cover bg-top h-64 w-full rounded-t">
                                 <div class="p-6">
-                                    <div class="pt-4 pb-3 text-xl font-bold">{{ art.title }}</div>
-                                    <div class="pb-3 font-bold text-orange-500">{{ art.currency }} {{
-                                            art.price
-                                        }}
+                                    <div class="pt-4 pb-3 text-2xl text-gray-700 font-bold">{{ art.title }}</div>
+                                    <div class="pb-3 text-xl font-bold text-orange-700">
+                                        {{ art.price.toFixed(2) }}
+                                        {{ art.currency.toUpperCase() }}
                                     </div>
                                     <div class="pb-5 text-gray-500 text-sm">{{ art.description }}</div>
                                     <div class="inline-flex space-x-4">
-                                        <div class="flex text-green-600 rounded bg-green-100 py-1 px-2 text-xs">
+                                        <div class="flex text-green-700 border border-green-200 rounded bg-green-50 py-1 px-2 text-xs">
                                             {{ art.duration }} hours
                                         </div>
                                         <div class="flex text-gay-600 rounded bg-gray-100 py-1 px-2 text-xs">
@@ -133,10 +133,6 @@ watch(() => [...selectedCategories.value], () => {
                                                  <star-svg></star-svg>
                                              </span> 4.6<span class="text-gray-400">(23)</span>
                                         </div>
-                                        <button class="bg-blue-600 text-white rounded py-1 px-3 text-xs">
-                                            <cart-svg></cart-svg>
-                                            Add to cart
-                                        </button>
                                     </div>
                                 </div>
                             </a>
