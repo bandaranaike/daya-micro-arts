@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StripeProductController;
+use App\Http\Middleware\AdminUser;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -39,7 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 Route::delete("categories", [CategoryController::class, "destroy"]);
 Route::get("categories", [CategoryController::class, "index"]);
@@ -53,8 +54,14 @@ Route::post('contact-us', [ContactController::class, 'store']);
  */
 Route::get('arts', [ArtController::class, 'showAll']);
 Route::get('galleries', [ArtController::class, 'getArtsForHomePage']);
-Route::get('art/create', [ArtController::class, 'create'])->middleware('auth')->name('art.create-art');
-Route::post('art/create', [ArtController::class, 'store'])->name('art.store-art');
+
+Route::group(['middleware' => ['auth', AdminUser::class]], function () {
+    Route::get('art/create', [ArtController::class, 'create'])->name('art.create-art');
+    Route::post('art/create', [ArtController::class, 'store'])->name('art.store-art');
+    Route::get('art/edit', [ArtController::class, 'edit'])->name('art.edit-art');
+    Route::post('art/update', [ArtController::class, 'update'])->name('art.update-art');
+});
+
 Route::get('art/canceled', [ArtController::class, 'paymentCanceled']);
 Route::get('art/success', [ArtController::class, 'paymentSuccess']);
 Route::get('art/{art}', [ArtController::class, 'show']);

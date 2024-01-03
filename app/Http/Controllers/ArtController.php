@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Config\IntSystemConfigEnum;
+use App\Config\PermissionEnum;
 use App\Http\Requests\StoreArtRequest;
 use App\Http\Requests\UpdateArtRequest;
 use App\Http\Resources\ArtResource;
@@ -12,6 +13,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
@@ -57,7 +59,7 @@ class ArtController extends Controller
      */
     public function create(): \Inertia\Response
     {
-        return Inertia::render('CreateArt');
+        return Inertia::render('Admin/CreateArt');
     }
 
     /**
@@ -68,6 +70,10 @@ class ArtController extends Controller
      */
     public function store(StoreArtRequest $request): JsonResponse
     {
+        if (!Auth::user()->hasPermissionTo(PermissionEnum::CREATE_ART)) {
+            abort(Response::HTTP_FORBIDDEN);
+        }
+
         try {
             $art = $this->saveExecute(new Art(), $request);
         } catch (NotFoundExceptionInterface|ContainerExceptionInterface $e) {
@@ -97,11 +103,11 @@ class ArtController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Art $art
-     * @return Response
+     * @return \Inertia\Response
      */
-    public function edit(Art $art)
+    public function edit(Art $art): \Inertia\Response
     {
-        //
+        return Inertia::render('Admin/CreateArt', compact('art'));
     }
 
     /**
@@ -116,6 +122,11 @@ class ArtController extends Controller
      */
     public function update(UpdateArtRequest $request, Art $art): JsonResponse
     {
+
+        if (!Auth::user()->hasPermissionTo(PermissionEnum::EDIT_ART)) {
+            abort(Response::HTTP_FORBIDDEN);
+        }
+
         $this->saveExecute($art, $request);
         return new JsonResponse("Success!");
     }
