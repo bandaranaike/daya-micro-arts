@@ -34,7 +34,7 @@ defineProps({
         <div class="mt-4">
             <div class="grid grid-cols-5 gap-4">
                 <div class="col-span-3 mt-4">
-                    <img :src="'/storage/projects/' + (art.image ?? 'default.png')" :alt="art.title">
+                    <img class="object-cover w-full" :src="'/storage/projects/' + (art.image ?? 'default.png')" :alt="art.title">
                 </div>
                 <div class="p-8 col-span-2">
                     <h1 class="text-4xl text-gray-700 font-light leading-8"> {{ art.title }}</h1>
@@ -60,7 +60,7 @@ defineProps({
                             @loading="v => loading = v"
                         >
                         </stripe-checkout>
-                        <span @click="submit">Buy now  {{ art.stripe_price_id }} </span>
+                        <span @click="submit">Buy now </span>
                     </div>
                 </div>
             </div>

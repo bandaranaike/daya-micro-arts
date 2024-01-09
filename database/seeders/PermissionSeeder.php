@@ -33,21 +33,21 @@ class PermissionSeeder extends Seeder
 
     private function createAdminRole(): void
     {
-        Role::firstOrCreate(['name' => RolesEnum::ADMIN->value, 'guard_name' => 'admin']);
+        Role::firstOrCreate(['name' => RolesEnum::ADMIN->value, 'guard_name' => 'web']);
     }
 
     private function createUserRole(): void
     {
-        Role::firstOrCreate(['name' => RolesEnum::USER->value, 'guard_name' => 'admin']);
+        Role::firstOrCreate(['name' => RolesEnum::USER->value, 'guard_name' => 'web']);
     }
 
     private function createPermissions(): void
     {
-        Permission::insert([
-            ['name' => PermissionEnum::CREATE_ART->value, 'guard_name' => 'admin'],
-            ['name' => PermissionEnum::DELETE_ART->value, 'guard_name' => 'admin'],
-            ['name' => PermissionEnum::EDIT_ART->value, 'guard_name' => 'admin'],
-        ]);
+        Permission::upsert([
+            ['name' => PermissionEnum::CREATE_ART->value, 'guard_name' => 'web'],
+            ['name' => PermissionEnum::DELETE_ART->value, 'guard_name' => 'web'],
+            ['name' => PermissionEnum::EDIT_ART->value, 'guard_name' => 'web'],
+        ], ['name', 'guard_name']);
     }
 
     private function assignPermissionToAdminRoles(): void

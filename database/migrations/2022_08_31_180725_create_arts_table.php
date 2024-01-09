@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->id();
             $table->uuid();
             $table->string('stripe_id')->nullable();
+            $table->string('stripe_price_id')->nullable();
             $table->unsignedSmallInteger('category_id');
             $table->string('title')->nullable();
             $table->text('description')->nullable();

@@ -18,6 +18,9 @@ use Stripe\Product;
 
 trait SaveArtTrait
 {
+
+    const IMAGE_STORE_PATH = 'public/projects';
+
     /**
      * @param $art
      * @param UpdateArtRequest|StoreArtRequest $request
@@ -36,6 +39,7 @@ trait SaveArtTrait
         $art->title = $name;
         $art->duration = $request->get('duration');
         $art->description = $request->get('description');
+        $art->category_id = $request->get('category_id');
         $art->date = Carbon::parse(Str::remove(" (India Standard Time)", $request->get('date')));
         $art->currency = $request->get('currency');
         $art->price = $price;
@@ -43,8 +47,8 @@ trait SaveArtTrait
         $art->stripe_id = $product->id;
         $art->uuid = Str::uuid()->toString();
 
-        if ($request->hasFile('image')) {
-            $art->image = Str::remove("public/projects/", $request->file('image')->store('public/projects'));
+        if ($request->file('image')) {
+            $art->image = Str::remove(self::IMAGE_STORE_PATH, $request->file('image')->store(self::IMAGE_STORE_PATH));
         }
         $art->save();
         return $art;

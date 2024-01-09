@@ -19,6 +19,8 @@ class Art extends Model
 
     CONST ALL_CATEGORY_ID = 0;
 
+
+
     /**
      * @return BelongsTo
      */

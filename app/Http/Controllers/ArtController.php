@@ -14,6 +14,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
@@ -23,6 +24,7 @@ class ArtController extends Controller
 {
     use SaveArtTrait;
 
+    const ART_DEFAULT_IMAGE_NME = 'default.png';
     const HOME_PAGE_GALLERY_LIMIT = 12;
 
     /**
@@ -44,11 +46,16 @@ class ArtController extends Controller
      */
     public function getArtsForHomePage(Request $request): JsonResponse
     {
+        return $this->getArtList($request);
+    }
+
+    private function getArtList(Request $request, $paginate = self::HOME_PAGE_GALLERY_LIMIT)
+    {
         $arts = Art::query()->when($request->get('categories'), function (Builder $builder, $categories) {
             if ($categories[0] != Art::ALL_CATEGORY_ID) {
                 $builder->whereIn('category_id', $categories);
             }
-        })->paginate(self::HOME_PAGE_GALLERY_LIMIT);
+        })->paginate($paginate);
         return new JsonResponse(ArtResource::collection($arts));
     }
 
@@ -99,6 +106,27 @@ class ArtController extends Controller
         return Inertia::render('ShowArt', compact('art'));
     }
 
+
+    public function showList()
+    {
+        return Inertia::render('Admin/ArtList');
+    }
+
+
+    public function getList(Request $request)
+    {
+        return $this->getArtList($request, $request->get('per_page', self::HOME_PAGE_GALLERY_LIMIT));
+    }
+
+    public function removeImage(Art $art)
+    {
+        Storage::delete(self::IMAGE_STORE_PATH . "/" . $art->image);
+        $art->image = self::ART_DEFAULT_IMAGE_NME;
+        $art->save();
+
+        return new JsonResponse('Image has been successfully deleted!');
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -107,7 +135,7 @@ class ArtController extends Controller
      */
     public function edit(Art $art): \Inertia\Response
     {
-        return Inertia::render('Admin/CreateArt', compact('art'));
+        return Inertia::render('Admin/CreateArt', ['initArt' => $art]);
     }
 
     /**
