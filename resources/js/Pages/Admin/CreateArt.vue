@@ -53,7 +53,7 @@
                             class="block w-full text-sm text-gray-900 border border-gray-300 rounded px-4 mb-3 leading-tight cursor-pointer bg-gray-50 focus:outline-none"
                             aria-describedby="user_avatar_help" id="user_avatar" type="file">
                     </div>
-                    <div class="w-full rounded border relative" v-if="art.image && art.image !== 'default.png'">
+                    <div class="w-full rounded border relative mx-3" v-if="art.image && art.image !== 'default.png'">
                         <div class="absolute top-1 right-1 cursor-pointer" @click="removeImage(art)">
                             <close-svg color="red"></close-svg>
                         </div>

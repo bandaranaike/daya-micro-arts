@@ -146,9 +146,6 @@ class ArtController extends Controller
      * @param UpdateArtRequest $request
      * @param Art $art
      * @return JsonResponse
-     * @throws ApiErrorException
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
      */
     public function update(UpdateArtRequest $request, Art $art): JsonResponse
     {
@@ -157,7 +154,12 @@ class ArtController extends Controller
             abort(Response::HTTP_FORBIDDEN);
         }
 
-        $this->saveExecute($art, $request, false);
+        try {
+            $this->saveExecute($art, $request, false);
+        } catch (NotFoundExceptionInterface|ContainerExceptionInterface|ApiErrorException $e) {
+            return new JsonResponse($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
         return new JsonResponse("Success!");
     }
 

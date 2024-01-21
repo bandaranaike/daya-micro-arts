@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property mixed $duration
  * @property mixed $date
  * @property mixed $price
+ * @property mixed $stripe_id
+ * @property mixed $stripe_price_id
  */
 class Art extends Model
 {

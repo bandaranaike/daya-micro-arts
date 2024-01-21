@@ -14,6 +14,7 @@ use Illuminate\Support\Str;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Stripe\Exception\ApiErrorException;
+use Stripe\Price;
 use Stripe\Product;
 
 trait SaveArtTrait
@@ -39,16 +40,17 @@ trait SaveArtTrait
     {
         $name = $request->get('title');
         $price = $request->get('price');
+        $currency = $request->get('currency');
 
         $product = $isNew ? $this->createProductInStripe($name, $price)
-            : $this->updateProductInStripe($art, $name, $price);
+            : $this->updateProductInStripe($art, $name, $price, $currency);
 
         $art->title = $name;
         $art->duration = $request->get('duration');
         $art->description = $request->get('description');
         $art->category_id = $request->get('category_id');
         $art->date = Carbon::parse(Str::remove(" (India Standard Time)", $request->get('date')));
-        $art->currency = $request->get('currency');
+        $art->currency = $currency;
         $art->price = $price;
         $art->stripe_price_id = $product->default_price;
         $art->stripe_id = $product->id;
@@ -74,8 +76,7 @@ trait SaveArtTrait
      */
     private function createProductInStripe($name, $price): Product
     {
-        $stripeService = StripeService::make();
-        return $stripeService->products->create([
+        return $this->stripeService->products->create([
             'name' => $name,
             'default_price_data' => [
                 'currency' => request()->get('currency'),
@@ -85,35 +86,54 @@ trait SaveArtTrait
     }
 
     /**
-     * @param $productStripeId
+     * @param $art
      * @param $name
      * @param $price
+     * @param $currency
      * @return Product
      * @throws ApiErrorException
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
      */
-    private function updateProductInStripe($art, $name, $price): Product
+    private function updateProductInStripe($art, $name, $price, $currency): Product
     {
+        $data = [];
 
-        return $stripeService->products->update($art->stripe_id, [
-            'metadata' => [
-                'name' => $name,
-                'default_price_data' => [
-                    'currency' => request()->get('currency'),
-                    'unit_amount' => $price * 100
-                ]
-            ]
+        if ($name != $art->title) {
+            $data['name'] = $name;
+        }
+
+        if ($price != $art->price) {
+            $newPrice = $this->createNewPrice($art, $price, $currency);
+            $data['default_price'] = $newPrice->id;
+        }
+
+        $updatedProduct = $this->stripeService->products->update($art->stripe_id, $data);
+
+        if ($price != $art->price) {
+            $this->makeOldPriceInactive($art);
+        }
+
+        return $updatedProduct;
+    }
+
+    /**
+     * @throws ApiErrorException
+     */
+    private function makeOldPriceInactive(Art $art): Price
+    {
+        return $this->stripeService->prices->update($art->stripe_price_id, [
+            'active' => false
         ]);
     }
 
-    private function makeOldPriceInactive($art)
+    /**
+     * @throws ApiErrorException
+     */
+    private function createNewPrice(Art $art, $price, $currency): Price
     {
-
-    }
-
-    private function createNewPrice()
-    {
-
+        return $this->stripeService->prices->create([
+            'product' => $art->stripe_id,
+            'unit_amount' => $price * 100,
+            'currency' => $currency,
+        ]);
     }
 }
