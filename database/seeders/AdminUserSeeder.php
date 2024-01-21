@@ -16,7 +16,7 @@ class AdminUserSeeder extends Seeder
     {
         User::firstOrCreate(
             ['email' => config('permission.admin_email')],
-            ['name' => 'admin', 'password' => Hash::make('=ey)Zdkb^8y$%w~')]
+            ['name' => 'admin', 'password' => Hash::make(env('ADMIN_PASSWORD', '=ey)Zdkb^8y$%w~'))]
         );
     }
 }

@@ -19,6 +19,7 @@ use Inertia\Inertia;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Stripe\Exception\ApiErrorException;
+use Stripe\StripeClient;
 
 class ArtController extends Controller
 {
@@ -26,6 +27,7 @@ class ArtController extends Controller
 
     const ART_DEFAULT_IMAGE_NME = 'default.png';
     const HOME_PAGE_GALLERY_LIMIT = 12;
+    private StripeClient $stripeService;
 
     /**
      * Display a listing of the resource.
@@ -155,7 +157,7 @@ class ArtController extends Controller
             abort(Response::HTTP_FORBIDDEN);
         }
 
-        $this->saveExecute($art, $request);
+        $this->saveExecute($art, $request, false);
         return new JsonResponse("Success!");
     }
 

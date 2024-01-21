@@ -60,7 +60,9 @@
                         <img :src="`/storage/projects/${art.image}`" :alt="art.title" class="w-full h-64 object-cover">
                     </div>
                     <div v-if="imageDeleteMessage">
-                        <div class="mt-8 bg-green-50 text-gray-600 border border-green-800 rounded px-3 py-1">{{ imageDeleteMessage }}</div>
+                        <div class="mt-8 bg-green-50 text-gray-600 border border-green-800 rounded px-3 py-1">
+                            {{ imageDeleteMessage }}
+                        </div>
                     </div>
                 </div>
                 <div class="flex flex-wrap -mx-3 mb-6">
@@ -147,10 +149,10 @@
                                 d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"></path>
                         </svg>
                         <span class="sr-only">Info</span>
-                        <h3 class="text-lg font-medium">Art created successfully!</h3>
+                        <h3 class="text-lg font-medium">Art saved successfully!</h3>
                     </div>
                     <div class="mt-2 mb-4 text-sm">
-                        The art titled '{{ createdArt.title }}' has been created and synced with Stripe. It is now ready
+                        The art titled '{{ createdArt.title }}' has been saved and synced with Stripe. It is now ready
                         for online selling.
                     </div>
                     <div class="flex">
@@ -218,7 +220,6 @@ let art = reactive({
 })
 
 onMounted(() => {
-    console.log("initArt", props.initArt)
     if (props.initArt) {
         isEditing.value = true;
         art = props.initArt;
@@ -252,9 +253,13 @@ function saveArt() {
             'Content-type': 'multipart/form-data'
         }
     }).then(response => {
-        art = {}
+        if (isEditing.value) {
+            createdArt = art
+        } else {
+            createdArt.value = response.data
+            art = {}
+        }
         artFile.value = null
-        createdArt.value = response.data
         showSuccess.value = true
     }).finally(() => {
         isArtSaving.value = false
