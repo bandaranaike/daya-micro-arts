@@ -243,6 +243,7 @@ function saveArt() {
     Object.keys(art).forEach(key => formData.append(key, art[key]));
 
     if (artFile.value) {
+        console.log("artFile.value", artFile.value);
         formData.append('image', artFile.value);
     }
 

@@ -5,7 +5,7 @@ import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
-import {Link} from '@inertiajs/vue3';
+import {Head, Link} from '@inertiajs/vue3';
 import changeTheme from "@/Services/ChangeTheme";
 
 
@@ -18,10 +18,15 @@ function changeDarkMode() {
     currentTheme.value = localStorage.getItem('theme');
 }
 
+defineProps({
+    title: String
+})
+
 </script>
 
 <template>
     <div>
+        <Head :title="title"></Head>
         <div class="min-h-screen bg-gray-100">
             <nav class="bg-white border-b border-gray-100">
                 <!-- Primary Navigation Menu -->
@@ -30,7 +35,7 @@ function changeDarkMode() {
                         <div class="flex">
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
-                                <Link :href="route('dashboard')">
+                                <Link :href="route('home')">
                                     <ApplicationLogo
                                         class="block h-9 w-auto fill-current text-gray-800"
                                     />
@@ -42,12 +47,19 @@ function changeDarkMode() {
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
                                 </NavLink>
+                                <NavLink :href="route('art.list')" :active="route().current('art.list')">
+                                    Art list
+                                </NavLink>
+                                <NavLink :href="route('art.create')" :active="route().current('art.create')">
+                                    Art create
+                                </NavLink>
                             </div>
                         </div>
 
                         <div class="hidden sm:flex sm:items-center sm:ms-6">
                             <!-- Settings Dropdown -->
                             <button
+                                v-if="false"
                                 @click="changeDarkMode()"
                                 type="button"
                                 class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"

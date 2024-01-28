@@ -1,10 +1,12 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Welcome from '@/Components/Welcome.vue';
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 </script>
 
 <template>
-    <AppLayout title="Dashboard">
+    <AuthenticatedLayout title="Dashboard">
+
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 Dashboard
@@ -18,5 +20,5 @@ import Welcome from '@/Components/Welcome.vue';
                 </div>
             </div>
         </div>
-    </AppLayout>
+    </AuthenticatedLayout>
 </template>

@@ -59,7 +59,7 @@ watch(() => [...selectedCategories.value], () => {
 
 <template>
     <Head>
-        <title>Daya micro art</title>
+        <title>Welcome </title>
     </Head>
 
     <AppLayout :full-width="true">

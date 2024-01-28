@@ -68,10 +68,8 @@ Route::group(['middleware' => ['auth', AdminUser::class]], function () {
 
 Route::get('art/canceled', [ArtController::class, 'paymentCanceled']);
 Route::get('art/success', [ArtController::class, 'paymentSuccess']);
-Route::get('art/{art}', [ArtController::class, 'show']);
+Route::get('art/{art}', [ArtController::class, 'show'])->name('art.show');
 
-
-Route::get('cart/show', [CartController::class, 'show']);
 
 Route::get('stripe/get-price-list', [StripeProductController::class, 'saveInDatabaseAllProductsFromStripe']);
 
