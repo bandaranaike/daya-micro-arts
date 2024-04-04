@@ -3,24 +3,22 @@ import {Head} from "@inertiajs/vue3";
 import SiteLayout from "@/Layouts/SiteLayout.vue";
 import CartIcon from "@/Components/CartIcon.vue";
 
+import {StripeCheckout} from '@vue-stripe/vue-stripe';
 import {ref} from "vue";
 import Loader from "@/Components/Loader.vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
 
-const stripeKey = import.meta.env.VITE_STRIPE_KEY;
+const publishableKey = import.meta.env.VITE_STRIPE_KEY;
 
 const successURL = import.meta.env.VITE_STRIPE_SUCCESS_URL
 const cancelURL = import.meta.env.VITE_STRIPE_CANCEL_URL
 
 let loading = ref(false)
 let checkoutRef = ref(null)
-let processing = ref(false)
 
 async function submit(a) {
-    console.log("a", a)
-    processing.value = true;
     // You will be redirected to Stripe's secure checkout page
-    // checkoutRef.value.redirectToCheckout();
+    checkoutRef.value.redirectToCheckout();
 }
 
 const stripeLoaded = ref(false)
@@ -28,15 +26,15 @@ const card = ref()
 const elms = ref()
 
 const pay = () => {
-        // Get stripe element
-        const cardElement = card.value.stripeElement
+    // Get stripe element
+    const cardElement = card.value.stripeElement
 
-        // Access instance methods, e.g. createToken()
-        elms.value.instance.createToken(cardElement).then((result) => {
-            // Handle result.error or result.token
-            console.log(result)
-        })
-    }
+    // Access instance methods, e.g. createToken()
+    elms.value.instance.createToken(cardElement).then((result) => {
+        // Handle result.error or result.token
+        console.log(result)
+    })
+}
 
 defineProps({
     art: Object
@@ -66,22 +64,18 @@ defineProps({
                             </div>
                             <div class="rounded bg-slate-700 text-white cursor-pointer px-6 py-2 mt-4 inline-block">
                                 <cart-icon></cart-icon>
-                                <StripeElements
-                                    v-if="stripeLoaded"
-                                    v-slot="{ elements, instance }"
-                                ref="elms"
-                                :stripe-key="stripeKey"
-                                :instance-options="instanceOptions"
-                                :elements-options="elementsOptions"
-                                >
-                                <StripeElement
-                                    ref="card"
-                                    :elements="elements"
-                                    :options="cardOptions"
+                                <stripe-checkout
+                                    ref="checkoutRef"
+                                    mode="payment"
+                                    :pk="publishableKey"
+                                    :success-url="successURL"
+                                    :cancel-url="`${cancelURL}/${art.uuid}`"
+                                    :line-items="[{quantity:1, price:art.stripe_price_id}]"
+                                    client-reference-id="777"
+                                    locale="en"
+                                    :disable-advanced-fraud-detection="false"
+                                    @loading="v => loading = v"
                                 />
-                                </StripeElements>
-                                <button type="button" @click="pay">Pay</button>
-                                <span v-if="processing"> Processing.. <loader class="mr-3 mt-3 inline-block "></loader></span>
                                 <span @click="submit"> Buy now </span>
                             </div>
                         </div>
